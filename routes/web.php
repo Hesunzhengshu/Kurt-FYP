@@ -24,3 +24,7 @@ Route::get('/home', function() {
 Route::get('/home/tables', function() {
     return view('tables');
 });
+
+Route::get('/firstpage', function() {
+    return view('firstpage');
+});
