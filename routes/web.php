@@ -19,10 +19,10 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'home'], function () {
     Route::get('/', function() {
-        return view('index');
+        return view('index/index');
     });
     Route::get('/tables', function() {
-        return view('tables');
+        return view('index/tables');
     });
 });
 
