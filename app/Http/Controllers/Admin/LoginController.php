@@ -42,29 +42,40 @@ class LoginController extends Controller
     // } else {
         // 验证没通过就显示错误提示信息
         // return Redirect::to('/register')->with('message', '请您正确填写下列数据')->withErrors($validator)->withInput(); 
+
+    
     //登录控制器   
     public function login(){
         return view('users.login');
     }
+
     //form validation
     public function receive(Request $request)
     {
-        $validationRule = [
+        $rule = [
             'email'=>'required|email',
-            'password'=>'required|between:6,12',
+            'password'=>'required|between:3,12|alpha_num|',
         ];
 
-        $returnMsg = [
+        $msg = [
             'email.required' => 'The form should be E-mail',
-            'password.required' => 'Password is',
+            'password.required' => 'Password is empty or wrong',
         ];
-    //validation controller
-    $validator = Validator::make($request->all(), $validationRule, $returnMsg);
+
+    //obtain input information
+    $validator = Validator::make($request->all(), $rule, $msg);
+    $user = $request->all();
+    $motherfucker = User::where('email', $user['email'])->first();
+    // dd($motherfucker);
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
-        }else{
-            return view('index/index');
         }
+        if ($motherfucker->email != $user['email'] || $motherfucker->password != $user['password']) {
+            return redirect('home/login')->with('error', 'motherfucker asshole!');
+        }else{
+            return view('index/index'); 
+        }
+
     }
 
 }

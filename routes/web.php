@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\LoginController;
-
+use App\Http\Controllers\Admin\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,9 +25,9 @@ Route::get('/', function () {
 // Route::any('/home', [LoginController::class, 'receive']);
 
 //
-Route::get('/register', function () {
-    return view('users.register');
-});
+// Route::get('/register', function () {
+//     return view('users.register');
+// });
 
 //
 Route::group(['prefix' => 'home'], function () {
@@ -44,6 +44,11 @@ Route::group(['prefix' => 'home'], function () {
 
     //login controller route
     Route::any('/index', [LoginController::class, 'receive']);
+
+    //regitser route
+    Route::get('/register', [RegisterController::class, 'register']);
+
+    Route::any('/create', [RegisterController::class, 'create']);
 });
 
 
